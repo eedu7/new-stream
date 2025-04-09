@@ -11,6 +11,7 @@ import {
     SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import Link from "next/link";
+import { useAuth, useClerk } from "@clerk/nextjs";
 
 const items: { title: string; href: string; icon: LucideIcon; auth?: boolean }[] = [
     {
@@ -34,18 +35,25 @@ const items: { title: string; href: string; icon: LucideIcon; auth?: boolean }[]
 ];
 
 export const PersonalSection = () => {
+    const { isSignedIn } = useAuth();
+    const clerk = useClerk();
     return (
         <SidebarGroup>
             <SidebarGroupLabel>You</SidebarGroupLabel>
             <SidebarGroupContent>
                 <SidebarMenu>
-                    {items.map(({ title, href, icon: Icon }) => (
+                    {items.map(({ title, href, icon: Icon, auth }) => (
                         <SidebarMenuItem key={title}>
                             <SidebarMenuButton
                                 tooltip={title}
                                 asChild
                                 isActive={false} // TODO: Change to look at current pathName
-                                onClick={() => {}} // TODO: Do something on click
+                                onClick={(e) => {
+                                    if (!isSignedIn && auth) {
+                                        e.preventDefault();
+                                        return clerk.openSignIn();
+                                    }
+                                }}
                             >
                                 <Link
                                     href={href}
