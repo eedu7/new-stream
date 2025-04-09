@@ -40,8 +40,8 @@ export const MainSection = () => {
                             <SidebarMenuButton
                                 tooltip={title}
                                 asChild
-                                isActive={false}
-                                onClick={() => {}}
+                                isActive={false} // TODO: Change to look at current pathName
+                                onClick={() => {}} // TODO: Do something on click
                             >
                                 <Link
                                     href={href}
