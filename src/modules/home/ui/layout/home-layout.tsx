@@ -5,10 +5,12 @@ import { HomeNavbar } from "@/modules/home/ui/components/home-navbar";
 export const HomeLayout = ({ children }: { children: React.ReactNode }) => {
     return (
         <SidebarProvider>
-            <div className="bg-blue-500">
+            <div>
                 <HomeNavbar />
             </div>
-            {children}
+            <div className="flex min-h-screen pt-[4rem]">
+                <main className="flex-1 overflow-y-auto">{children}</main>
+            </div>
         </SidebarProvider>
     );
 };
