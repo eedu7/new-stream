@@ -2,13 +2,14 @@ import Image from "next/image";
 
 export default function Home() {
     return (
-        <div className="text-primary cursor-pointer border-0">
+        <div className="flex items-center gap-x-2">
             <Image
                 src="/logo.svg"
                 alt="Logo"
                 width={50}
                 height={50}
             />
+            <p className="text-xl font-semibold tracking-tight">NewSteam</p>
         </div>
     );
 }
