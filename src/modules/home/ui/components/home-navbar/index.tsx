@@ -11,7 +11,7 @@ export const HomeNavbar = () => {
             <div className="flex w-full items-center gap-4">
                 {/* Menu and Logo */}
                 <div className="flex shrink-0 items-center">
-                    <SidebarTrigger />
+                    <SidebarTrigger className="cursor-pointer" />
                     <Link href="/">
                         <div className="flex items-center gap-1 p-4">
                             <Image
