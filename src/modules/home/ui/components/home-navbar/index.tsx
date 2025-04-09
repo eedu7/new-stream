@@ -2,6 +2,7 @@ import React from "react";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import Link from "next/link";
 import Image from "next/image";
+import { SearchInput } from "@/modules/home/ui/components/home-navbar/search-input";
 
 export const HomeNavbar = () => {
     return (
