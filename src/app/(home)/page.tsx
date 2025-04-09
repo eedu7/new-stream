@@ -1,15 +1,3 @@
-import Image from "next/image";
-
 export default function Home() {
-    return (
-        <div>
-            <Image
-                src="/logo.svg"
-                alt="Logo"
-                width={50}
-                height={50}
-            />
-            <p className="text-xl font-semibold tracking-tight">NewSteam</p>
-        </div>
-    );
+    return <p>I will load videos in the future</p>;
 }
