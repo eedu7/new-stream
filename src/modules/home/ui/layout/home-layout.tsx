@@ -5,7 +5,7 @@ import { HomeNavbar } from "@/modules/home/ui/components/home-navbar";
 export const HomeLayout = ({ children }: { children: React.ReactNode }) => {
     return (
         <SidebarProvider>
-            <div className="bg-blue-500 p-4">
+            <div className="bg-blue-500">
                 <HomeNavbar />
             </div>
             {children}
