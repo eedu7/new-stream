@@ -1,9 +1,19 @@
-// <-- hooks can only be used in client components
-import { trpc } from "@/trpc/server";
+import { HydrateClient, trpc } from "@/trpc/server";
+import { PageClient } from "@/app/(home)/client";
+import { Suspense } from "react";
+import { ErrorBoundary } from "react-error-boundary";
 
 export default async function Home() {
-    const data = await trpc.hello({
-        text: "- NewStream 0134",
+    void trpc.hello.prefetch({
+        text: "Client",
     });
-    return <p>Client component says: {data?.greeting}</p>;
+    return (
+        <HydrateClient>
+            <Suspense fallback={<p>Loading...</p>}>
+                <ErrorBoundary fallback={<p>Error...</p>}>
+                    <PageClient />
+                </ErrorBoundary>
+            </Suspense>
+        </HydrateClient>
+    );
 }
