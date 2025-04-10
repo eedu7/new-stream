@@ -110,7 +110,7 @@ export const FilterCarousel = ({ value, isLoading, data, onSelect, className }: 
                             </CarouselItem>
                         ))}
                 </CarouselContent>
-                <CarouselPrevious className="left-0 z-20" />
+                <CarouselPrevious className={cn("left-0 z-20")} />
                 <CarouselNext className="right-0 z-20" />
             </Carousel>
         </div>
