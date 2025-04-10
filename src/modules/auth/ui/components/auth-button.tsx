@@ -13,7 +13,7 @@ export const AuthButton = () => {
                 <UserButton>
                     <UserButton.MenuItems>
                         <UserButton.Link
-                            label="Studio"
+                            label="NewStream Studio"
                             href="/studio"
                             labelIcon={<ClapperboardIcon className="size-4" />}
                         />
