@@ -1,0 +1,37 @@
+import React from "react";
+import { SidebarTrigger } from "@/components/ui/sidebar";
+import Link from "next/link";
+import Image from "next/image";
+import { SearchInput } from "@/modules/home/ui/components/home-navbar/search-input";
+import { AuthButton } from "@/modules/auth/ui/components/auth-button";
+
+export const StudioNavbar = () => {
+    return (
+        <nav className="fixed top-0 right-0 left-0 z-50 flex h-16 items-center bg-white px-2 pr-5">
+            <div className="flex w-full items-center gap-4">
+                {/* Menu and Logo */}
+                <div className="flex shrink-0 items-center">
+                    <SidebarTrigger className="cursor-pointer" />
+                    <Link href="/">
+                        <div className="flex items-center gap-1 p-4">
+                            <Image
+                                src="/logo.svg"
+                                alt="Logo"
+                                width={32}
+                                height={32}
+                            />
+                            <p className="text-xl font-semibold tracking-tight">NewSteam</p>
+                        </div>
+                    </Link>
+                </div>
+                {/* Search bar*/}
+                <div className="max-w- mx-auto flex max-w-[720px] flex-1 justify-center">
+                    <SearchInput />
+                </div>
+                <div className="flex shrink-0 items-center gap-4">
+                    <AuthButton />
+                </div>
+            </div>
+        </nav>
+    );
+};
