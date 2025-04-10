@@ -17,13 +17,14 @@ interface FilterCarouselProps {
     value?: string | null;
     isLoading?: boolean;
     onSelect: (value: string | null) => void;
+    className?: string;
     data: {
         value: string;
         label: string;
     }[];
 }
 
-export const FilterCarousel = ({ value, isLoading, data, onSelect }: FilterCarouselProps) => {
+export const FilterCarousel = ({ value, isLoading, data, onSelect, className }: FilterCarouselProps) => {
     const [api, setApi] = useState<CarouselApi>();
     const [current, setCurrent] = useState(0);
 
@@ -67,7 +68,7 @@ export const FilterCarousel = ({ value, isLoading, data, onSelect }: FilterCarou
                     align: "start",
                     dragFree: true,
                 }}
-                className="w-full px-12"
+                className={cn("w-full px-12", className)}
             >
                 <CarouselContent className="-ml-3">
                     {!isLoading && (
