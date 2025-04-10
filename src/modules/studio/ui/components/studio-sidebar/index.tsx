@@ -4,7 +4,7 @@ import { MainSection } from "@/modules/home/ui/components/home-sidebar/main-sect
 import { Separator } from "@/components/ui/separator";
 import { PersonalSection } from "@/modules/home/ui/components/home-sidebar/personal-section";
 
-export const HomeSidebar = () => {
+export const StudioSidebar = () => {
     return (
         <Sidebar
             className="z-40 border-none pt-16"
