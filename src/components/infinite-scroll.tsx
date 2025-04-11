@@ -30,6 +30,7 @@ export const InfiniteScroll = ({ fetchNextPage, hasNextPage, isFetchingNextPage,
             {hasNextPage ? (
                 <Button
                     variant="secondary"
+                    className="cursor-pointer"
                     disabled={!hasNextPage || isFetchingNextPage}
                     onClick={() => fetchNextPage()}
                 >
