@@ -15,8 +15,8 @@ export const StudioUploadModal = () => {
             toast.success("Video created");
             utils.studio.getMany.invalidate();
         },
-        onError: () => {
-            toast.error("Something went wrong!");
+        onError: (error) => {
+            toast.error(`Something went wrong! ${error.message}`);
         },
     });
 
@@ -24,11 +24,18 @@ export const StudioUploadModal = () => {
         <>
             <ResponsiveModal
                 title="Upload a video"
-                open={!!create.data}
+                open={!!create.data?.url}
                 onOpenChange={() => create.reset()}
             >
                 <p>This will be an uploader</p>
-                <StudioUploader />
+                {create.data?.url ? (
+                    <StudioUploader
+                        endpoint={create?.data?.url}
+                        onSuccess={() => {}}
+                    />
+                ) : (
+                    <Loader2Icon />
+                )}
             </ResponsiveModal>
             <Button
                 variant="secondary"

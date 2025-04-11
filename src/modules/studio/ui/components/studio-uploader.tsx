@@ -9,7 +9,7 @@ interface StudioUploaderProps {
 export const StudioUploader = ({ endpoint, onSuccess }: StudioUploaderProps) => {
     return (
         <div>
-            <MuxUploader />
+            <MuxUploader endpoint={endpoint} />
         </div>
     );
 };
