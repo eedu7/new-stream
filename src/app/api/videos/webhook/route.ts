@@ -1,5 +1,6 @@
 import {
     VideoAssetCreatedWebhookEvent,
+    VideoAssetDeletedWebhookEvent,
     VideoAssetErroredWebhookEvent,
     VideoAssetReadyWebhookEvent,
     VideoAssetTrackReadyWebhookEvent,
@@ -16,7 +17,8 @@ type WebhookEvent =
     | VideoAssetCreatedWebhookEvent
     | VideoAssetReadyWebhookEvent
     | VideoAssetErroredWebhookEvent
-    | VideoAssetTrackReadyWebhookEvent;
+    | VideoAssetTrackReadyWebhookEvent
+    | VideoAssetDeletedWebhookEvent;
 
 export const POST = async (req: Request) => {
     if (!SIGNING_SECRET) {
@@ -89,6 +91,30 @@ export const POST = async (req: Request) => {
                 .where(eq(videos.muxUploadId, data.upload_id));
 
             break;
+        }
+        case "video.asset.errored": {
+            const data = payload.data as VideoAssetErroredWebhookEvent["data"];
+
+            if (!data.upload_id) {
+                return new Response("Missing upload ID", { status: 400 });
+            }
+
+            await db
+                .update(videos)
+                .set({
+                    muxStatus: data.status,
+                })
+                .where(eq(videos.muxUploadId, data.upload_id));
+            break;
+        }
+        case "video.asset.deleted": {
+            const data = payload.data as VideoAssetDeletedWebhookEvent["data"];
+
+            if (!data.upload_id) {
+                return new Response("Missing upload ID", { status: 400 });
+            }
+
+            await db.delete(videos).where(eq(videos.muxUploadId, data.upload_id));
         }
     }
     return new Response("Webhook received", {

@@ -34,7 +34,7 @@ export const VideosSectionSuspense = () => {
     return (
         <div>
             <div className="border-y">
-                <Table>
+                <Table className="min-w-[85vw] border-2 border-blue-500">
                     <TableHeader>
                         <TableRow>
                             <TableHead className="w-[510px] pl-6">Video</TableHead>
