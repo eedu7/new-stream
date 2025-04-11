@@ -1,13 +1,15 @@
 import React from "react";
 import Image from "next/image";
+import { formatDuration } from "@/lib/utils";
 
 interface VideoThumbnailProps {
     imageUrl?: string | null;
     previewUrl?: string | null;
     title: string;
+    duration: number;
 }
 
-export const VideoThumbnail = ({ imageUrl, previewUrl, title }: VideoThumbnailProps) => {
+export const VideoThumbnail = ({ imageUrl, previewUrl, title, duration }: VideoThumbnailProps) => {
     return (
         <div className="group relative">
             {/* Thumbnail wrapper */}
@@ -25,9 +27,10 @@ export const VideoThumbnail = ({ imageUrl, previewUrl, title }: VideoThumbnailPr
                     className="size-full object-cover opacity-0 group-hover:opacity-100"
                 />
             </div>
-
             {/* Video duration box*/}
-            {/* TODO: Add video duration box*/}
+            <div className="absolute right-2 bottom-2 rounded bg-black/80 px-1 py-0.5 text-xs font-medium text-white">
+                {formatDuration(duration)}
+            </div>
         </div>
     );
 };
