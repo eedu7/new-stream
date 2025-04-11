@@ -27,7 +27,6 @@ export const StudioUploadModal = () => {
                 open={!!create.data?.url}
                 onOpenChange={() => create.reset()}
             >
-                <p>This will be an uploader</p>
                 {create.data?.url ? (
                     <StudioUploader
                         endpoint={create?.data?.url}
