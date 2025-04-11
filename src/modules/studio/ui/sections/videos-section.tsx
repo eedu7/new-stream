@@ -8,6 +8,8 @@ import { InfiniteScroll } from "@/components/infinite-scroll";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import Link from "next/link";
 import { VideoThumbnail } from "@/modules/videos/ui/components/video-thumbnail";
+import { snakeCaseToTitle } from "@/lib/utils";
+import { format } from "date-fns";
 
 export const VideosSection = () => {
     return (
@@ -64,11 +66,25 @@ export const VideosSectionSuspense = () => {
                                                         duration={video.duration || 0}
                                                     />
                                                 </div>
+                                                <div className="flex flex-col gap-y-1 overflow-hidden">
+                                                    <span className="line-clamp-1 text-sm">{video.title}</span>
+                                                    <span className="text-muted-foreground line-clamp-1 text-xs">
+                                                        {video.description || "No" + " description"}
+                                                    </span>
+                                                </div>
                                             </div>
                                         </TableCell>
                                         <TableCell>visibility</TableCell>
-                                        <TableCell>status</TableCell>
-                                        <TableCell>date</TableCell>
+                                        <TableCell>
+                                            <div className="flex items-center">
+                                                {snakeCaseToTitle(video.muxStatus || "error")}
+                                            </div>
+                                        </TableCell>
+                                        <TableCell>
+                                            <div className="truncate text-xs">
+                                                {format(new Date(video.createdAt), "d MMM yyyy")}
+                                            </div>
+                                        </TableCell>
                                         <TableCell>views</TableCell>
                                         <TableCell>comments</TableCell>
                                         <TableCell>likes</TableCell>
