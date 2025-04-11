@@ -20,6 +20,8 @@ export const videosRouter = createTRPCRouter({
             .values({
                 userId,
                 title: "Undefined",
+                muxStatus: "waiting",
+                muxUploadId: upload.id,
             })
             .returning();
 
