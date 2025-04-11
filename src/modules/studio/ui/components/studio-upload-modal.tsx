@@ -6,6 +6,7 @@ import { Loader2Icon, PlusIcon } from "lucide-react";
 import { trpc } from "@/trpc/client";
 import { toast } from "sonner";
 import { ResponsiveModal } from "@/components/responsive-modal";
+import { StudioUploader } from "@/modules/studio/ui/components/studio-uploader";
 
 export const StudioUploadModal = () => {
     const utils = trpc.useUtils();
@@ -27,6 +28,7 @@ export const StudioUploadModal = () => {
                 onOpenChange={() => create.reset()}
             >
                 <p>This will be an uploader</p>
+                <StudioUploader />
             </ResponsiveModal>
             <Button
                 variant="secondary"
