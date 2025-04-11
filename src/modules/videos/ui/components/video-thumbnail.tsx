@@ -1,13 +1,17 @@
 import React from "react";
 import Image from "next/image";
 
-export const VideoThumbnail = () => {
+interface VideoThumbnailProps {
+    imageUrl?: string | null;
+}
+
+export const VideoThumbnail = ({ imageUrl }: VideoThumbnailProps) => {
     return (
         <div className="relative">
             {/* Thumbnail wrapper */}
             <div className="relative aspect-video w-full overflow-hidden rounded-xl">
                 <Image
-                    src="/placeholder.svg"
+                    src={imageUrl ?? "/placeholder.svg"}
                     alt="Thumbnail"
                     fill
                     className="size-full object-cover"
