@@ -35,7 +35,7 @@ export const ourFileRouter = {
             await db
                 .update(videos)
                 .set({
-                    thumbnailUrl: file.url,
+                    thumbnailUrl: file.ufsUrl,
                 })
                 .where(and(eq(videos.id, metadata.videoId), eq(videos.userId, metadata.user.id)));
 
