@@ -20,7 +20,7 @@ export const HomeNavbar = () => {
                                 width={32}
                                 height={32}
                             />
-                            <p className="text-xl font-semibold tracking-tight">NewSteam</p>
+                            <p className="hidden text-xl font-semibold tracking-tight md:flex">NewSteam</p>
                         </div>
                     </Link>
                 </div>

@@ -23,7 +23,6 @@ export const CategoriesSection = ({ categoryId }: CategoriesSectionProps) => {
 const CategoriesSectionSuspenseFallback = () => {
     return (
         <FilterCarousel
-            className="max-w-[83vw]"
             isLoading={true}
             data={[]}
             onSelect={() => {}}
@@ -55,7 +54,6 @@ export const CategoriesSectionSuspense = ({ categoryId }: CategoriesSectionProps
 
     return (
         <FilterCarousel
-            className="max-w-[83vw]"
             value={categoryId}
             data={data}
             onSelect={onSelect}
