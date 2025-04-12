@@ -10,7 +10,7 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { MoreVerticalIcon, TrashIcon } from "lucide-react";
+import { EditIcon, Loader2Icon, MoreVerticalIcon, TrashIcon } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { videoUpdateSchema } from "@/db/schema";
 import { z } from "zod";
@@ -19,6 +19,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { toast } from "sonner";
 
 interface FormSectionProps {
     videoId: string;
@@ -39,16 +40,28 @@ const FormSectionSkeleton = () => {
 };
 
 export const FormSectionSuspense = ({ videoId }: FormSectionProps) => {
+    const utils = trpc.useUtils();
     const [video] = trpc.studio.getOne.useSuspenseQuery({ id: videoId });
     const [categories] = trpc.categories.getMany.useSuspenseQuery();
+
+    const update = trpc.videos.update.useMutation({
+        onSuccess: () => {
+            utils.studio.getMany.invalidate();
+            utils.studio.getOne.invalidate({ id: videoId });
+            toast.success("Video updated");
+        },
+        onError: () => {
+            toast.error("Something went wrong.");
+        },
+    });
 
     const form = useForm<z.infer<typeof videoUpdateSchema>>({
         resolver: zodResolver(videoUpdateSchema),
         defaultValues: video,
     });
 
-    const onSubmit = async (data: z.infer<typeof videoUpdateSchema>) => {
-        console.log(data);
+    const onSubmit = (data: z.infer<typeof videoUpdateSchema>) => {
+        update.mutate(data);
     };
 
     return (
@@ -61,11 +74,23 @@ export const FormSectionSuspense = ({ videoId }: FormSectionProps) => {
                     </div>
                     <div className="flex items-center gap-x-2">
                         <Button
-                            disabled={false}
+                            variant="secondary"
+                            disabled={update.isPending}
                             className="cursor-pointer"
                             type="submit"
                         >
-                            Save
+                            {update.isPending ? (
+                                <>
+                                    <Loader2Icon className="size-4 animate-spin" />
+                                    Updating
+                                </>
+                            ) : (
+                                <>
+                                    <EditIcon className="size-4" />
+                                    Update
+                                </>
+                            )}
+                            {/*Save*/}
                         </Button>
                         <DropdownMenu>
                             <DropdownMenuTrigger asChild>
