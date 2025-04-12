@@ -3,6 +3,7 @@
 import React, { Suspense } from "react";
 import { trpc } from "@/trpc/client";
 import { ErrorBoundary } from "react-error-boundary";
+import { Button } from "@/components/ui/button";
 
 interface FormSectionProps {
     videoId: string;
@@ -25,5 +26,20 @@ const FormSectionSkeleton = () => {
 export const FormSectionSuspense = ({ videoId }: FormSectionProps) => {
     const [video] = trpc.studio.getOne.useSuspenseQuery({ id: videoId });
 
-    return <div>{JSON.stringify(video)}</div>;
+    return (
+        <div className="mb-6 flex w-full items-center justify-between border">
+            <div>
+                <h1 className="text-2xl font-bold">Video details</h1>
+                <p className="text-muted-foreground text-xs">Manage your video details</p>
+            </div>
+            <div className="flex items-center gap-x-2">
+                <Button
+                    disabled={false}
+                    type="submit"
+                >
+                    Save
+                </Button>
+            </div>
+        </div>
+    );
 };
