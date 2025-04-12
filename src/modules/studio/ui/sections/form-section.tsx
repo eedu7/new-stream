@@ -10,7 +10,16 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { CopyCheckIcon, CopyIcon, EditIcon, Loader2Icon, MoreVerticalIcon, TrashIcon } from "lucide-react";
+import {
+    CopyCheckIcon,
+    CopyIcon,
+    EditIcon,
+    Globe2Icon,
+    Loader2Icon,
+    LockIcon,
+    MoreVerticalIcon,
+    TrashIcon,
+} from "lucide-react";
 import { useForm } from "react-hook-form";
 import { videoUpdateSchema } from "@/db/schema";
 import { z } from "zod";
@@ -237,6 +246,40 @@ export const FormSectionSuspense = ({ videoId }: FormSectionProps) => {
                                 </div>
                             </div>
                         </div>
+                        <FormField
+                            control={form.control}
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Visibility</FormLabel>
+                                    <Select
+                                        onValueChange={field.onChange}
+                                        defaultValue={field.value ?? undefined}
+                                    >
+                                        <FormControl>
+                                            <SelectTrigger>
+                                                <SelectValue placeholder="Select a category" />
+                                            </SelectTrigger>
+                                        </FormControl>
+                                        <SelectContent>
+                                            <SelectItem value="private">
+                                                <div className="flex items-center gap-x-2">
+                                                    <LockIcon className="mr-2 size-4" />
+                                                    Private
+                                                </div>
+                                            </SelectItem>
+                                            <SelectItem value="public">
+                                                <div className="flex items-center gap-x-2">
+                                                    <Globe2Icon className="mr-2 size-4" />
+                                                    Public
+                                                </div>
+                                            </SelectItem>
+                                        </SelectContent>
+                                    </Select>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                            name="visibility"
+                        />
                     </div>
                 </div>
             </form>
