@@ -11,6 +11,7 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { MoreVerticalIcon, TrashIcon } from "lucide-react";
+import { useForm } from "react-hook-form";
 
 interface FormSectionProps {
     videoId: string;
@@ -32,6 +33,10 @@ const FormSectionSkeleton = () => {
 
 export const FormSectionSuspense = ({ videoId }: FormSectionProps) => {
     const [video] = trpc.studio.getOne.useSuspenseQuery({ id: videoId });
+
+    const form = useForm({
+        defaultValue: video,
+    });
 
     return (
         <div className="mb-6 flex w-full items-center justify-between">
