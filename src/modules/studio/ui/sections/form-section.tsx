@@ -20,6 +20,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "sonner";
+import { VideoPlayer } from "@/modules/videos/ui/components/video-player";
 
 interface FormSectionProps {
     videoId: string;
@@ -179,6 +180,16 @@ export const FormSectionSuspense = ({ videoId }: FormSectionProps) => {
                             )}
                             name="categoryId"
                         />
+                    </div>
+                    <div className="flex flex-col gap-y-8 lg:col-span-2">
+                        <div className="flex h-fit flex-col gap-4 overflow-hidden rounded-xl bg-[#F9F9F9]">
+                            <div className="relative aspect-video overflow-hidden">
+                                <VideoPlayer
+                                    playbackId={video.muxPlaybackId}
+                                    thumbnailUrl={video.thumbnailUrl}
+                                />
+                            </div>
+                        </div>
                     </div>
                 </div>
             </form>
