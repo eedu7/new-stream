@@ -5,6 +5,7 @@ import { mux } from "@/lib/mux";
 import { and, eq } from "drizzle-orm";
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
+import { UTApi } from "uploadthing/server";
 
 export const videosRouter = createTRPCRouter({
     restoreThumbnail: protectedProcedure.input(z.object({ id: z.string().uuid() })).mutation(async ({ ctx, input }) => {
@@ -19,15 +20,37 @@ export const videosRouter = createTRPCRouter({
             throw new TRPCError({ code: "NOT_FOUND" });
         }
 
+        if (existingVideo.thumbnailKey) {
+            const utapi = new UTApi();
+
+            await utapi.deleteFiles(existingVideo.thumbnailKey);
+            await db
+                .update(videos)
+                .set({
+                    thumbnailKey: null,
+                    thumbnailUrl: null,
+                })
+                .where(and(eq(videos.id, existingVideo.id), eq(videos.userId, userId)));
+        }
+
         if (!existingVideo.muxPlaybackId) {
             throw new TRPCError({ code: "NOT_FOUND" });
         }
 
-        const thumbnailUrl = `https://image.mux.com/${existingVideo.muxPlaybackId}/thumbnail.jpg`;
+        const tempThumbnailUrl = `https://image.mux.com/${existingVideo.muxPlaybackId}/thumbnail.jpg`;
+
+        const utApi = new UTApi();
+        const uploadedThumbnail = await utApi.uploadFilesFromUrl(tempThumbnailUrl);
+
+        if (!uploadedThumbnail.data) {
+            throw new TRPCError({ code: "INTERNAL_SERVER_ERROR" });
+        }
+
+        const { ufsUrl: thumbnailUrl, key: thumbnailKey } = uploadedThumbnail.data;
 
         const [updatedVideo] = await db
             .update(videos)
-            .set({ thumbnailUrl })
+            .set({ thumbnailUrl, thumbnailKey })
             .where(and(eq(videos.id, input.id), eq(videos.userId, userId)))
             .returning();
 

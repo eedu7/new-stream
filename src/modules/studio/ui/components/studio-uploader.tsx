@@ -22,6 +22,7 @@ export const StudioUploader = ({ endpoint, onSuccess }: StudioUploaderProps) => 
             <MuxUploader
                 endpoint={endpoint}
                 id={UPLOADER_ID}
+                onSuccess={onSuccess}
                 className="group/uploader hidden"
             />
             <MuxUploaderDrop
