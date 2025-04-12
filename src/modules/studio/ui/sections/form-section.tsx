@@ -22,6 +22,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { toast } from "sonner";
 import { VideoPlayer } from "@/modules/videos/ui/components/video-player";
 import Link from "next/link";
+import { snakeCaseToTitle } from "@/lib/utils";
 
 interface FormSectionProps {
     videoId: string;
@@ -218,6 +219,20 @@ export const FormSectionSuspense = ({ videoId }: FormSectionProps) => {
                                                 {isCopied ? <CopyCheckIcon /> : <CopyIcon />}
                                             </Button>
                                         </div>
+                                    </div>
+                                </div>
+                                <div className="flex items-center justify-between">
+                                    <div className="flex flex-col gap-y-1">
+                                        <p className="text-muted-foreground text-xs">Video status</p>
+                                        <p className="text-sm">{snakeCaseToTitle(video.muxStatus || "preparing")}</p>
+                                    </div>
+                                </div>
+                                <div className="flex items-center justify-between">
+                                    <div className="flex flex-col gap-y-1">
+                                        <p className="text-muted-foreground text-xs">Subtitles status</p>
+                                        <p className="text-sm">
+                                            {snakeCaseToTitle(video.muxTrackStatus || "no_subtitles")}
+                                        </p>
                                     </div>
                                 </div>
                             </div>
