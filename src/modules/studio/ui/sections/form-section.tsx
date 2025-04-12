@@ -33,6 +33,7 @@ import { VideoPlayer } from "@/modules/videos/ui/components/video-player";
 import Link from "next/link";
 import { snakeCaseToTitle } from "@/lib/utils";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 interface FormSectionProps {
     videoId: string;
@@ -184,7 +185,21 @@ export const FormSectionSuspense = ({ videoId }: FormSectionProps) => {
                             )}
                             name="description"
                         />
-                        {/* TODO: Add thumbnail field here */}
+                        <FormField
+                            control={form.control}
+                            name="thumbnailUrl"
+                            render={() => (
+                                <FormItem>
+                                    <div className="relative h-[84px] border border-dashed border-neutral-400 p-0.5">
+                                        <Image
+                                            src={video.thumbnailUrl ?? "/placeholder.svg"}
+                                            alt="Thumbnail"
+                                            fill
+                                        />
+                                    </div>
+                                </FormItem>
+                            )}
+                        />
                         <FormField
                             control={form.control}
                             render={({ field }) => (
