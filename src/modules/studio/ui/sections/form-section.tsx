@@ -17,6 +17,8 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 interface FormSectionProps {
     videoId: string;
@@ -89,7 +91,7 @@ export const FormSectionSuspense = ({ videoId }: FormSectionProps) => {
                             control={form.control}
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel></FormLabel>
+                                    <FormLabel>Title</FormLabel>
                                     <FormControl>
                                         <Input
                                             placeholder="Add a title to your video"
@@ -100,6 +102,49 @@ export const FormSectionSuspense = ({ videoId }: FormSectionProps) => {
                                 </FormItem>
                             )}
                             name="title"
+                        />
+                        <FormField
+                            control={form.control}
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Description</FormLabel>
+                                    <FormControl>
+                                        <Textarea
+                                            {...field}
+                                            rows={10}
+                                            value={field.value?.toString() ?? ""}
+                                            className="resize-none pr-10"
+                                            placeholder="Add a description to your video"
+                                        />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                            name="description"
+                        />
+                        {/* TODO: Add thumbnail field here */}
+                        <FormField
+                            control={form.control}
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Category</FormLabel>
+                                    <Select
+                                        onValueChange={field.onChange}
+                                        defaultValue={field.value ?? undefined}
+                                    >
+                                        <FormControl>
+                                            <SelectTrigger>
+                                                <SelectValue placeholder="Select a category" />
+                                            </SelectTrigger>
+                                        </FormControl>
+                                        <SelectContent>
+                                            <SelectItem value="something">Something</SelectItem>
+                                        </SelectContent>
+                                    </Select>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                            name="categoryId"
                         />
                     </div>
                 </div>
