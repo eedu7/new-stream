@@ -85,6 +85,16 @@ export const FormSectionSuspense = ({ videoId }: FormSectionProps) => {
             toast.error("Something went wrong.");
         },
     });
+    const generateThumbnail = trpc.videos.generateThumbnail.useMutation({
+        onSuccess: () => {
+            toast.success("Background job started", {
+                description: "This may take time",
+            });
+        },
+        onError: () => {
+            toast.error("Something went wrong.");
+        },
+    });
     const restoreThumbnail = trpc.videos.restoreThumbnail.useMutation({
         onSuccess: () => {
             utils.studio.getMany.invalidate();
@@ -238,7 +248,9 @@ export const FormSectionSuspense = ({ videoId }: FormSectionProps) => {
                                                         <ImagePlusIcon className="mr-1 size-4" />
                                                         Change
                                                     </DropdownMenuItem>
-                                                    <DropdownMenuItem>
+                                                    <DropdownMenuItem
+                                                        onClick={() => generateThumbnail.mutate({ id: videoId })}
+                                                    >
                                                         <SparklesIcon className="mr-1 size-4" />
                                                         AI generated
                                                     </DropdownMenuItem>
