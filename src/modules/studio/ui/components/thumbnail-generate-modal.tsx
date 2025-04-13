@@ -30,8 +30,10 @@ export const ThumbnailGenerateModal = ({ videoId, open, onOpenChange }: Thumbnai
     const generateThumbnail = trpc.videos.generateThumbnail.useMutation({
         onSuccess: () => {
             toast.success("Background job started", {
-                description: "This may take time",
+                description: "Generating thumbnail",
             });
+            form.reset();
+            onOpenChange(false);
         },
         onError: () => {
             toast.error("Something went wrong.");
@@ -76,7 +78,13 @@ export const ThumbnailGenerateModal = ({ videoId, open, onOpenChange }: Thumbnai
                         )}
                     />
                     <div className="flex justify-end">
-                        <Button type="submit">Generate</Button>
+                        <Button
+                            type="submit"
+                            className="cursor-pointer"
+                            disabled={generateThumbnail.isPending}
+                        >
+                            {generateThumbnail.isPending ? "Generating..." : "Generate"}
+                        </Button>
                     </div>
                 </form>
             </Form>

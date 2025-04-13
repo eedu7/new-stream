@@ -34,7 +34,6 @@ export const { POST } = serve(async (context) => {
         body: {
             prompt: prompt,
             n: 1,
-            model: "dalle-e-3",
             size: "1792x1024",
         },
         headers: {
