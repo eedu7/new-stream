@@ -28,7 +28,6 @@ import { videoUpdateSchema } from "@/db/schema";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "sonner";
@@ -39,6 +38,7 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { THUMBNAIL_FALLBACK } from "@/modules/videos/constants";
 import { ThumbnailUploadModal } from "@/modules/studio/ui/components/thumbnail-upload-modal";
+import { Input } from "@/components/ui/input";
 
 interface FormSectionProps {
     videoId: string;
@@ -196,11 +196,29 @@ export const FormSectionSuspense = ({ videoId }: FormSectionProps) => {
                                 control={form.control}
                                 render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel>Title</FormLabel>
+                                        <FormLabel>
+                                            <div className="flex items-center gap-x-2">
+                                                Title
+                                                <Button
+                                                    type="button"
+                                                    size="icon"
+                                                    variant="outline"
+                                                    className="size-6 cursor-pointer rounded-full [&_svg]:size-3"
+                                                    onClick={() => generateTitle.mutate({ id: videoId })}
+                                                    disabled={generateTitle.isPending}
+                                                >
+                                                    {generateTitle.isPending ? (
+                                                        <Loader2Icon className="animate-spin" />
+                                                    ) : (
+                                                        <SparklesIcon />
+                                                    )}
+                                                </Button>
+                                            </div>
+                                        </FormLabel>
                                         <FormControl>
                                             <Input
-                                                placeholder="Add a title to your video"
                                                 {...field}
+                                                placeholder="Add a title to your videos"
                                             />
                                         </FormControl>
                                         <FormMessage />
@@ -212,7 +230,25 @@ export const FormSectionSuspense = ({ videoId }: FormSectionProps) => {
                                 control={form.control}
                                 render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel>Description</FormLabel>
+                                        <FormLabel>
+                                            <div className="flex items-center gap-x-2">
+                                                Description
+                                                <Button
+                                                    type="button"
+                                                    size="icon"
+                                                    variant="outline"
+                                                    className="size-6 cursor-pointer rounded-full [&_svg]:size-3"
+                                                    onClick={() => generateTitle.mutate({ id: videoId })}
+                                                    disabled={generateTitle.isPending}
+                                                >
+                                                    {generateTitle.isPending ? (
+                                                        <Loader2Icon className="animate-spin" />
+                                                    ) : (
+                                                        <SparklesIcon />
+                                                    )}
+                                                </Button>
+                                            </div>
+                                        </FormLabel>
                                         <FormControl>
                                             <Textarea
                                                 {...field}
@@ -259,7 +295,7 @@ export const FormSectionSuspense = ({ videoId }: FormSectionProps) => {
                                                         Change
                                                     </DropdownMenuItem>
                                                     <DropdownMenuItem
-                                                        onClick={() => generateTitle.mutate({ id: videoId })}
+                                                        onClick={() => generateThumbnail.mutate({ id: videoId })}
                                                     >
                                                         <SparklesIcon className="mr-1 size-4" />
                                                         AI generated
