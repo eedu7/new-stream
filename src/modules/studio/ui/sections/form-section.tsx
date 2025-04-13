@@ -85,6 +85,16 @@ export const FormSectionSuspense = ({ videoId }: FormSectionProps) => {
             toast.error("Something went wrong.");
         },
     });
+    const generateDescription = trpc.videos.generateDescription.useMutation({
+        onSuccess: () => {
+            toast.success("Background job started", {
+                description: "This may take time",
+            });
+        },
+        onError: () => {
+            toast.error("Something went wrong.");
+        },
+    });
     const generateTitle = trpc.videos.generateTitle.useMutation({
         onSuccess: () => {
             toast.success("Background job started", {
@@ -205,7 +215,7 @@ export const FormSectionSuspense = ({ videoId }: FormSectionProps) => {
                                                     variant="outline"
                                                     className="size-6 cursor-pointer rounded-full [&_svg]:size-3"
                                                     onClick={() => generateTitle.mutate({ id: videoId })}
-                                                    disabled={generateTitle.isPending}
+                                                    disabled={generateTitle.isPending || !video.muxTrackId}
                                                 >
                                                     {generateTitle.isPending ? (
                                                         <Loader2Icon className="animate-spin" />
@@ -238,10 +248,10 @@ export const FormSectionSuspense = ({ videoId }: FormSectionProps) => {
                                                     size="icon"
                                                     variant="outline"
                                                     className="size-6 cursor-pointer rounded-full [&_svg]:size-3"
-                                                    onClick={() => generateTitle.mutate({ id: videoId })}
-                                                    disabled={generateTitle.isPending}
+                                                    onClick={() => generateDescription.mutate({ id: videoId })}
+                                                    disabled={generateDescription.isPending || !video.muxTrackId}
                                                 >
-                                                    {generateTitle.isPending ? (
+                                                    {generateDescription.isPending ? (
                                                         <Loader2Icon className="animate-spin" />
                                                     ) : (
                                                         <SparklesIcon />
