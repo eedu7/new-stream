@@ -5,6 +5,7 @@ import { ErrorBoundary } from "react-error-boundary";
 import { trpc } from "@/trpc/client";
 import { cn } from "@/lib/utils";
 import { VideoPlayer } from "@/modules/videos/ui/components/video-player";
+import { VideoBanner } from "@/modules/videos/ui/components/video-banner";
 
 interface VideoSectionProps {
     videoId: string;
@@ -38,6 +39,7 @@ const VideoSectionSuspense = ({ videoId }: VideoSectionProps) => {
                     thumbnailUrl={video.thumbnailUrl}
                 />
             </div>
+            <VideoBanner status={video.muxStatus} />
         </>
     );
 };
