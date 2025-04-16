@@ -3,6 +3,8 @@
 import React, { Suspense } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import { trpc } from "@/trpc/client";
+import { cn } from "@/lib/utils";
+import { VideoPlayer } from "@/modules/videos/ui/components/video-player";
 
 interface VideoSectionProps {
     videoId: string;
@@ -19,7 +21,23 @@ export const VideoSection = ({ videoId }: VideoSectionProps) => {
 };
 
 const VideoSectionSuspense = ({ videoId }: VideoSectionProps) => {
-    const [data] = trpc.videos.getOne.useSuspenseQuery({ id: videoId });
+    const [video] = trpc.videos.getOne.useSuspenseQuery({ id: videoId });
 
-    return <div>{JSON.stringify(data)}</div>;
+    return (
+        <>
+            <div
+                className={cn(
+                    "relative aspect-video overflow-hidden rounded-xl bg-black",
+                    video.muxStatus !== "ready" && "rounded-b-none",
+                )}
+            >
+                <VideoPlayer
+                    autoPlay
+                    onPlay={() => {}}
+                    playbackId={video.muxPlaybackId}
+                    thumbnailUrl={video.thumbnailUrl}
+                />
+            </div>
+        </>
+    );
 };
