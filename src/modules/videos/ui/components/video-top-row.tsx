@@ -19,8 +19,10 @@ export const VideoTopRow = ({ video }: VideoTopRowProps) => {
                     }}
                     videoId={video.id}
                 />
-                <VideoReactions />
-                <VideoMenu />
+                <div className="sm:bm-0 -mb-2 flex gap-2 overflow-x-auto pb-2 sm:min-w-[calc(50%-6px)] sm:justify-end sm:overflow-visible sm:pb-0">
+                    <VideoReactions />
+                    <VideoMenu videoId={video.id} />
+                </div>
             </div>
         </div>
     );
