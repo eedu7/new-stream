@@ -6,7 +6,7 @@ import { useAuth } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
 
 interface VideoOwnerProps {
-    user: VideoGetOneOutput["user"];
+    user: VideoGetOneOutput;
     videoId: string;
 }
 
@@ -26,7 +26,7 @@ export const VideoOwner = ({ videoId, user }: VideoOwnerProps) => {
                     <span className="text-muted-foreground line-clamp-1 text-sm">{0} subscribers</span>
                 </div>
             </Link>
-            {userId === user.clerkI ? (
+            {userId === user.clerkId ? (
                 <Button
                     className="rounded-full"
                     variant="secondary"
@@ -34,7 +34,13 @@ export const VideoOwner = ({ videoId, user }: VideoOwnerProps) => {
                     <Link href={`/studio/videos/${videoId}`}>Edit video</Link>
                 </Button>
             ) : (
-                <SubscriptionButton />
+                // <SubscriptionButton />
+                <Button
+                    className="rounded-full"
+                    variant="secondary"
+                >
+                    Subscribe
+                </Button>
             )}
         </div>
     );
