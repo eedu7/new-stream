@@ -26,7 +26,7 @@ export const VideoDescription = ({
         >
             <div className="mb-2 flex gap-2 text-sm">
                 <span className="font-medium">{isExpanded ? expandedViews : compactViews} views</span>
-                <span className="font-medium">{isExpanded ? expendedDate : compactDate} views</span>
+                <span className="font-medium">{isExpanded ? expendedDate : compactDate}</span>
             </div>
             <div className="relative">
                 <p className={cn("text-sm whitespace-pre-wrap", !isExpanded && "line-clamp-2")}>

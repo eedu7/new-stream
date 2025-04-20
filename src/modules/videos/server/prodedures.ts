@@ -13,7 +13,9 @@ export const videosRouter = createTRPCRouter({
         const [existingVideo] = await db
             .select({
                 ...getTableColumns(videos),
-                ...getTableColumns(users),
+                user: {
+                    ...getTableColumns(users),
+                },
             })
             .from(videos)
             .where(eq(videos.id, input.id))

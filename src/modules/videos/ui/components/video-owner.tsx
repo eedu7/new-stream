@@ -6,7 +6,7 @@ import { useAuth } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
 
 interface VideoOwnerProps {
-    user: VideoGetOneOutput;
+    user: VideoGetOneOutput["user"];
     videoId: string;
 }
 
