@@ -29,8 +29,8 @@ export const VideoTopRow = ({ video }: VideoTopRowProps) => {
                 </div>
             </div>
             <VideoDescription
-                compactViews="0"
-                expandedViews="0"
+                compactViews="1.5K"
+                expandedViews="1,523"
                 compactDate="20/04/25"
                 expendedDate="20th April, 2025"
                 description={video.description}
