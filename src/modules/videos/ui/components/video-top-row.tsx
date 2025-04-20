@@ -3,6 +3,7 @@ import { VideoGetOneOutput } from "@/modules/videos/types";
 import { VideoOwner } from "@/modules/videos/ui/components/video-owner";
 import { VideoReactions } from "@/modules/videos/ui/components/video-reactions";
 import { VideoMenu } from "@/modules/videos/ui/components/video-menu";
+import { VideoDescription } from "@/modules/videos/ui/components/video-description";
 
 interface VideoTopRowProps {
     video: VideoGetOneOutput;
@@ -27,6 +28,13 @@ export const VideoTopRow = ({ video }: VideoTopRowProps) => {
                     />
                 </div>
             </div>
+            <VideoDescription
+                compactViews="0"
+                expandedViews="0"
+                compactDate="20/04/25"
+                expendedDate="20th April, 2025"
+                description={video.description}
+            />
         </div>
     );
 };
