@@ -43,19 +43,19 @@ export const videosRouter = createTRPCRouter({
                 viewCount: db.$count(videoViews, eq(videoViews.videoId, videos.id)),
                 likeCount: db.$count(
                     videoReactions,
-                    and(eq(videoViews.videoId, videos.id), eq(videoReactions.type, "like")),
+                    and(eq(videoReactions.videoId, videos.id), eq(videoReactions.type, "like")),
                 ),
                 dislikeCount: db.$count(
                     videoReactions,
-                    and(eq(videoViews.videoId, videos.id), eq(videoReactions.type, "dislike")),
+                    and(eq(videoReactions.videoId, videos.id), eq(videoReactions.type, "dislike")),
                 ),
                 viewerReaction: viewerReactions.type,
             })
             .from(videos)
             .innerJoin(users, eq(videos.userId, users.id))
+            .where(eq(videos.id, input.id))
             .leftJoin(viewerReactions, eq(viewerReactions.videoId, videos.id))
-            .where(eq(videos.id, input.id));
-        // .groupBy(videos.id, users.id, viewerReactions.type);
+            .groupBy(videos.id, users.id, viewerReactions.type);
 
         if (!existingVideo) {
             throw new TRPCError({ code: "NOT_FOUND" });
